@@ -2,7 +2,7 @@ function	rotate_barre()
 {
 	var i = 0;
 	var i2;
-	while (i < 20)
+	while (i < 21)
 	{
 		i2 = 0;
 		while (i2 < 10)
@@ -45,7 +45,7 @@ function	rotate_z1()
 {
 	var i = 0;
 	var i2;
-	while (i < 20)
+	while (i < 21)
 	{
 		i2 = 0;
 		while (i2 < 10)
@@ -86,7 +86,7 @@ function	rotate_z2()
 {
 	var i = 0;
 	var i2;
-	while (i < 20)
+	while (i < 21)
 	{
 		i2 = 0;
 		while (i2 < 10)
@@ -127,7 +127,7 @@ function	rotate_triangle()
 {
 	var i = 0;
 	var i2;
-	while (i < 20)
+	while (i < 21)
 	{
 		i2 = 0;
 		while (i2 < 10)
@@ -176,7 +176,7 @@ function	rotate_l1()
 {
 	var i = 0;
 	var i2;
-	while (i < 20)
+	while (i < 21)
 	{
 		i2 = 0;
 		while (i2 < 10)
@@ -241,7 +241,7 @@ function	rotate_l2()
 {
 	var i = 0;
 	var i2;
-	while (i < 20)
+	while (i < 21)
 	{
 		i2 = 0;
 		while (i2 < 10)

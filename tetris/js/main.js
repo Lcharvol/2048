@@ -20,26 +20,6 @@ function	console_log_map()
 	console.log(map[17]);
 	console.log(map[18]);
 	console.log(map[19]);
-	console.log(map[20]);
-	console.log(map[21]);
-	console.log(map[22]);
-	console.log(map[23]);
-	console.log(map[24]);
-	console.log(map[25]);
-	console.log(map[26]);
-	console.log(map[27]);
-	console.log(map[28]);
-	console.log(map[29]);
-	console.log(map[30]);
-	console.log(map[31]);
-	console.log(map[32]);
-	console.log(map[33]);
-	console.log(map[34]);
-	console.log(map[35]);
-	console.log(map[36]);
-	console.log(map[37]);
-	console.log(map[38]);
-	console.log(map[39]);
 }
 
 function get_alea(min, max)
@@ -336,38 +316,67 @@ function	check_end_of_turn()
 	return(0);
 }
 
-function	del_line(line)
+function	move_fixed_blocks(nb_deleted_lines, frst_line_deleted)
 {
+	var fixed_blocks = document.getElementById('fixed_block');
+	var active_blocks = document.getElementById('inner_map');
+	var i = 0;
+	var tmp = 0;
+	var i2 = 0;
+	var i3 = 0;
+	while (i < fixed_blocks.childNodes.length)
+	{
+		if (parseInt(fixed_blocks.childNodes[i].style.top) < (frst_line_deleted * 50))
+		{
+			tmp = map[(parseInt(fixed_blocks.childNodes[i].style.top) / 50)][(parseInt(fixed_blocks.childNodes[i].style.left) / 50)]; 
+			map[(parseInt(fixed_blocks.childNodes[i].style.top) / 50)][(parseInt(fixed_blocks.childNodes[i].style.left) / 50)] = 0;
+			fixed_blocks.childNodes[i].style.top = parseInt(fixed_blocks.childNodes[i].style.top) + (nb_deleted_lines * 50) + "px";
+			map[(parseInt(fixed_blocks.childNodes[i].style.top) / 50)][(parseInt(fixed_blocks.childNodes[i].style.left) / 50)] = tmp;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < active_blocks.childNodes.length)
+	{
+		tmp = map[(parseInt(active_blocks.childNodes[i].style.top) / 50)][(parseInt(active_blocks.childNodes[i].style.left) / 50)]; 
+		map[(parseInt(active_blocks.childNodes[i].style.top) / 50)][(parseInt(active_blocks.childNodes[i].style.left) / 50)] = 0;
+		active_blocks.childNodes[i].style.top = parseInt(active_blocks.childNodes[i].style.top) + (nb_deleted_lines * 50) + "px";
+		map[(parseInt(active_blocks.childNodes[i].style.top) / 50)][(parseInt(active_blocks.childNodes[i].style.left) / 50)] = tmp;
+		i++;
+	}
+}
+
+function	del_line(ini_line)
+{
+	var i = 0;
+	var line = ini_line;
 	var i2 = 0;
 	var tmp = 0;
+	var i3 = 0;
+	var blocks = document.getElementsByClassName('piece');
 	while (i2 < 10)
 	{
 		map[line][i2] = 0;
 		i2++;
 	}
-	// line--;
-	// while (line >= 0)
-	// {
-	// 	i2 = 0;
-	// 	while (i2 < 10)
-	// 	{
-	// 		if (map[line][i2] == 0 && map[line - 1][i2] != 0)
-	// 		{
-	// 			tmp = map[line - 1][i2];
-	// 			map[line - 1][i2] = 0;
-	// 			map[line][i2] = tmp;
-	// 		}
-	// 		i2++;
-	// 	}
-	// 	line--;
-	// }
+	while (i < blocks.length)
+	{
+		if (blocks[i].style.top === (line * 50) + "px")
+		{
+			blocks[i].parentNode.removeChild(blocks[i]);
+			i = 0;
+		}
+		i++;
+	}
 }
 
 function	check_full_line()
 {
-	var i = 19;
+	var i = 21;
 	var i2;
 	var count;
+	var nb_deleted_lines = 0;
+	var frst_line_deleted = 21;
 	while (i >= 0)
 	{
 		count = 0;
@@ -381,11 +390,15 @@ function	check_full_line()
 		if (count == 10)
 		{
 			del_line(i);
-			// return(check_full_line());
+			if (i <= frst_line_deleted)
+				frst_line_deleted = i;
+			nb_deleted_lines++;
 		}
 		count = 0;
 		i--;
 	}
+	if (nb_deleted_lines > 0)
+		move_fixed_blocks(nb_deleted_lines, frst_line_deleted);
 }
 
 function run()
