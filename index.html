@@ -12,15 +12,76 @@
                 padding-left:50px;
                 padding-top:50px;
             }
-            body a
+            #term a
             {
+                position: relative;
             	color:white;
+                width:100%;
             	text-decoration: none;
+                left:20px;
+            }
+            #term a p
+            {
+                position: relative;
+                margin:0;
+            }
+            body h1
+            {
+                position:relative;
+                text-align: center;
+                margin-bottom:50px;
+            }
+            #term
+            {
+                background-color:black;
+                position:relative;
+                border-radius:5px;
+                width:500px;
+            }
+            #term_header
+            {
+                position:relative;
+                background-color:rgb(205,205,205);
+                width:calc(100% - 10px);
+                height:20px;
+                border-radius:5px 5px 0 0;
+                padding-left:10px;
+            }
+            #content
+            {
+                position: relative;
+                width:100%;
+            }
+            #content div
+            {
+                position: relative;
+                width:100%;
+                padding-left:10px;
+                padding-top:5px;
+                padding-bottom:5px;
+            }
+            .circle
+            {
+                position: relative;
+                display: inline-block;
+                border-radius: 100px;
+                width:10px;
+                height:10px;
             }
      </style>
 </head>
 <body>
-	<a href="2048/2048.html" > ~/ 2048_nativeJs</a></br>
-	<a href="tetris/tetris.html">~/ Tetris_nativeJs</a>
+    <h1>Lcharvol.github.io</h1>
+    <div id="term">
+        <div id="term_header">
+            <div class="circle" style="background-color:rgb(231, 76, 60);"></div>
+            <div class="circle" style="background-color:rgb(241, 196, 15);"></div>
+            <div class="circle" style="background-color:rgb(46, 204, 113);"></div>
+        </div>
+        <div id="content">
+    	   <div><a href="2048/2048.html" ><p> ~/ 2048_nativeJs</p></a></div>
+    	   <div><a href="tetris/tetris.html"><p>~/ Tetris_nativeJs</p></a></div>
+        </div>
+    </div>
 </body>
 </html>
