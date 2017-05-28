@@ -40,16 +40,14 @@ function draw_background_title()
 		var i = 0;
 		title_contner.innerHTML = "";
 		while (i < ((window.innerWidth / 25) * 5))
-			{
-						var rand_color = random_color();
-						title_contner.innerHTML += "<div class=\"relative_piece low_opacity " +  rand_color + "\">";
-						i++;
-					}
-		// draw_title(i);
-	// }
-	// draw_background_title()
-	// window.onresize = function(){
-	//     
-	//         draw_background_title();
-	//         }
+		{
+			var rand_color = random_color();
+			title_contner.innerHTML += "<div class=\"relative_piece low_opacity " +  rand_color + "\">";
+			i++;
+		}
+		draw_title(i);
+}
+draw_background_title()
+window.onresize = function(){
+	draw_background_title();
 }
