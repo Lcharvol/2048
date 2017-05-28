@@ -33,7 +33,7 @@ function get_alea(min, max)
 function draw_piece(y, x)
 {
 	var map_elem = document.getElementById('inner_map');
-	map_elem.innerHTML += "<div class=\"piece " + active_piece + "\" style=\"top:0" + (y  * 50) + "px;left:" + (x  * 50) + "px;\"></div>";
+	map_elem.innerHTML += "<div class=\"piece " + active_piece + "\" style=\"top:0" + (y  * 25) + "px;left:" + (x  * 25) + "px;\"></div>";
 	map[y][x] = active_piece;
 }
 
@@ -122,8 +122,8 @@ function	move_pieces_down()
 	var pieces = document.getElementsByClassName(piece_name);
 	for (var i = 0; i < pieces.length; i++)
 	{
-		if (parseInt(pieces[i].style.top) < 1050)
-	  		pieces[i].style.top = parseInt(pieces[i].style.top) + 50 + "px";
+		if (parseInt(pieces[i].style.top) < 525)
+	  		pieces[i].style.top = parseInt(pieces[i].style.top) + 25 + "px";
 	}
 }
 
@@ -186,10 +186,10 @@ function	actu_map()
 		{
 			color = get_the_color(map[i][i2]);
 			if (map[i][i2] == (active_piece - 1))
-				map_elem.innerHTML += "<div class=\"piece " + (active_piece - 1) + "\" style=\"background-image:radial-gradient(circle at top right," + color + ");top:" + (i  * 50) + "px;left:" + (i2  * 50) + "px;\"></div>";
+				map_elem.innerHTML += "<div class=\"piece " + (active_piece - 1) + "\" style=\"background-image:radial-gradient(circle at top right," + color + ");top:" + (i  * 25) + "px;left:" + (i2  * 25) + "px;\"></div>";
 			else if (map[i][i2] > 0)
 			{
-				fixed_block.innerHTML += "<div class=\"piece " + map[i][i2] + "\" style=\"background-image:radial-gradient(circle at top right," + color + ");top:" + (i  * 50) + "px;left:" + (i2  * 50) + "px;\"></div>";
+				fixed_block.innerHTML += "<div class=\"piece " + map[i][i2] + "\" style=\"background-image:radial-gradient(circle at top right," + color + ");top:" + (i  * 25) + "px;left:" + (i2  * 25) + "px;\"></div>";
 				map[i][i2] = -1;
 			}
 			i2++;
@@ -326,22 +326,22 @@ function	move_fixed_blocks(nb_deleted_lines, frst_line_deleted)
 	var i3 = 0;
 	while (i < fixed_blocks.childNodes.length)
 	{
-		if (parseInt(fixed_blocks.childNodes[i].style.top) < (frst_line_deleted * 50))
+		if (parseInt(fixed_blocks.childNodes[i].style.top) < (frst_line_deleted * 25))
 		{
-			tmp = map[(parseInt(fixed_blocks.childNodes[i].style.top) / 50)][(parseInt(fixed_blocks.childNodes[i].style.left) / 50)]; 
-			map[(parseInt(fixed_blocks.childNodes[i].style.top) / 50)][(parseInt(fixed_blocks.childNodes[i].style.left) / 50)] = 0;
-			fixed_blocks.childNodes[i].style.top = parseInt(fixed_blocks.childNodes[i].style.top) + (nb_deleted_lines * 50) + "px";
-			map[(parseInt(fixed_blocks.childNodes[i].style.top) / 50)][(parseInt(fixed_blocks.childNodes[i].style.left) / 50)] = tmp;
+			tmp = map[(parseInt(fixed_blocks.childNodes[i].style.top) / 25)][(parseInt(fixed_blocks.childNodes[i].style.left) / 25)]; 
+			map[(parseInt(fixed_blocks.childNodes[i].style.top) / 25)][(parseInt(fixed_blocks.childNodes[i].style.left) / 25)] = 0;
+			fixed_blocks.childNodes[i].style.top = parseInt(fixed_blocks.childNodes[i].style.top) + (nb_deleted_lines * 25) + "px";
+			map[(parseInt(fixed_blocks.childNodes[i].style.top) / 25)][(parseInt(fixed_blocks.childNodes[i].style.left) / 25)] = tmp;
 		}
 		i++;
 	}
 	i = 0;
 	while (i < active_blocks.childNodes.length)
 	{
-		tmp = map[(parseInt(active_blocks.childNodes[i].style.top) / 50)][(parseInt(active_blocks.childNodes[i].style.left) / 50)]; 
-		map[(parseInt(active_blocks.childNodes[i].style.top) / 50)][(parseInt(active_blocks.childNodes[i].style.left) / 50)] = 0;
-		active_blocks.childNodes[i].style.top = parseInt(active_blocks.childNodes[i].style.top) + (nb_deleted_lines * 50) + "px";
-		map[(parseInt(active_blocks.childNodes[i].style.top) / 50)][(parseInt(active_blocks.childNodes[i].style.left) / 50)] = tmp;
+		tmp = map[(parseInt(active_blocks.childNodes[i].style.top) / 25)][(parseInt(active_blocks.childNodes[i].style.left) / 25)]; 
+		map[(parseInt(active_blocks.childNodes[i].style.top) / 25)][(parseInt(active_blocks.childNodes[i].style.left) / 25)] = 0;
+		active_blocks.childNodes[i].style.top = parseInt(active_blocks.childNodes[i].style.top) + (nb_deleted_lines * 25) + "px";
+		map[(parseInt(active_blocks.childNodes[i].style.top) / 25)][(parseInt(active_blocks.childNodes[i].style.left) / 25)] = tmp;
 		i++;
 	}
 }
@@ -361,7 +361,7 @@ function	del_line(ini_line)
 	}
 	while (i < blocks.length)
 	{
-		if (blocks[i].style.top === (line * 50) + "px")
+		if (blocks[i].style.top === (line * 25) + "px")
 		{
 			blocks[i].parentNode.removeChild(blocks[i]);
 			i = 0;
@@ -399,6 +399,44 @@ function	check_full_line()
 	}
 	if (nb_deleted_lines > 0)
 		move_fixed_blocks(nb_deleted_lines, frst_line_deleted);
+	if (nb_deleted_lines == 1)
+		score += 40;
+	if (nb_deleted_lines == 2)
+		score += 100;
+	if (nb_deleted_lines == 3)
+		score += 300;
+	if (nb_deleted_lines >= 4)
+		score += 1200;
+}
+
+function	restart()
+{
+	var inner_map = document.getElementById('inner_map');
+	var fixed_block = document.getElementById('fixed_block');
+	inner_map.innerHTML = "";
+	fixed_block.innerHTML = "";
+	var i = 0;
+	var i2 = 0;
+	while (i < 22)
+	{
+		i2 = 0;
+		while (i2 < 10)
+		{
+			map[i][i2] = 0;
+			i2++;
+		}
+		i++;
+	}
+	score = 0;
+	active_piece = 1;
+	draw_alea_piece();
+	actu_map();
+}
+
+function	actu_score()
+{
+	var score_elem = document.getElementById('score');
+	score_elem.innerHTML = score;
 }
 
 function run()
@@ -412,6 +450,7 @@ function run()
 		turn++;
 	}
 	actu_map();
+	actu_score();
 }
 
 window.addEventListener("keydown", function(e)
@@ -422,13 +461,14 @@ window.addEventListener("keydown", function(e)
 		rotate();
 	else if(e.keyCode == 39)
 		move_right();
-	else if(e.keyCode == 40)
+	else if(e.keyCode == 40 && check_end_of_turn() == 0)
 		move_bot();
 	actu_map();
 }, true);
 
 var active_piece = 1;
 var	piece_type;
+var score = 0;
 var map = new Array(22);
 var turn = 1;
 for (var i = 0; i < 22; i++)
