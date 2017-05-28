@@ -2,9 +2,16 @@
 <html>
 <head>
 	<title>Tetris</title>
-	<link rel="stylesheet" type="text/css" href="css/main.css" />  
+	<link rel="stylesheet" type="text/css" href="css/main.css" /> 
+	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 </head>
 <body>
+	<div id="title_contner"></div>
+	<div id="score_contner">
+		<p>Score:</p>
+		<p id="score" >0</p>
+		<div id="restart_button" onclick="restart()"><p>Restart</p></div>
+	</div>
 	<div id="map">
 		<div id="inner_map"></div>
 		<div id="fixed_block"></div>
@@ -12,4 +19,5 @@
 </body>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="js/rotate.js"></script>
+<script type="text/javascript" src="js/tools.js"></script>
 </html>
