@@ -22,16 +22,16 @@ function random_color()
 
 function 	draw_title(nb_piece)
 {
-		var nb_piece_on_line = nb	_piece / 5;
+		var nb_piece_on_line = nB_piece / 5;
 		var pieces = document.getElementsByClassName('relative_piece');
 		var i = 0;
 		console.log(nb_piece);
 		while (i < pieces.length)
-			{
-						if ((i >= 5 && i <= 7) || i == (6 + nb_piece_on_line))
-								pieces[i].className = "relative_piece low_opacity color10";
-						i++;
-					}
+		{
+			if ((i >= 5 && i <= 7) || i == (6 + nb_piece_on_line))
+				pieces[i].className = "relative_piece low_opacity color10";
+			i++;
+		}
 }
 
 function draw_background_title()
