@@ -1,5 +1,5 @@
 
-n random_color()
+function random_color()
 {
 		var alea = get_alea(0,8);
 		if (alea == 1)
@@ -20,7 +20,7 @@ n random_color()
 				return("color8");
 }
 
-functiondraw_title(nb_piece)
+function 	draw_title(nb_piece)
 {
 		var nb_piece_on_line = nb	_piece / 5;
 		var pieces = document.getElementsByClassName('relative_piece');
@@ -52,3 +52,4 @@ function draw_background_title()
 	//     
 	//         draw_background_title();
 	//         }
+}
