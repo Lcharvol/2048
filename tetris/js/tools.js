@@ -22,7 +22,7 @@ function random_color()
 
 function 	draw_title(nb_piece)
 {
-		var nb_piece_on_line = nB_piece / 5;
+		var nb_piece_on_line = nb_piece / 5;
 		var pieces = document.getElementsByClassName('relative_piece');
 		var i = 0;
 		console.log(nb_piece);
