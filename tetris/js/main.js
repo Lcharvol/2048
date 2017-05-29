@@ -1,27 +1,3 @@
-function	console_log_map()
-{
-	console.log(map[0]);
-	console.log(map[1]);
-	console.log(map[2]);
-	console.log(map[3]);
-	console.log(map[4]);
-	console.log(map[5]);
-	console.log(map[6]);
-	console.log(map[7]);
-	console.log(map[8]);
-	console.log(map[9]);
-	console.log(map[10]);
-	console.log(map[11]);
-	console.log(map[12]);
-	console.log(map[13]);
-	console.log(map[14]);
-	console.log(map[15]);
-	console.log(map[16]);
-	console.log(map[17]);
-	console.log(map[18]);
-	console.log(map[19]);
-}
-
 function get_alea(min, max)
 {
 	var nb = Math.random() * (max - min) + min;
@@ -317,7 +293,6 @@ function	move_fixed_blocks(nb_deleted_lines, frst_line_deleted)
 	}
 	i = 0;
 	var active_blocks = document.getElementById('inner_map');
-	console.log(active_blocks);
 	while (i < active_blocks.childNodes.length)
 	{
 		if (active_blocks.childNodes[i] != undefined)
