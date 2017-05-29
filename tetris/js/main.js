@@ -40,6 +40,11 @@ function draw_piece(y, x)
 function	draw_alea_piece()
 {
 	var alea = get_alea(0,7);
+	if (check_end_of_game() == 1)
+	{
+			game = 0;
+			return;
+	}
 	if (alea == 1)
 	{
 		draw_piece(0,0 + 4);
@@ -146,30 +151,6 @@ function	get_the_color(nb)
 	if (nb % 8 == 7)
 		return("rgb(149, 165, 166),rgb(127, 140, 141)");
 }
-
-// function	actu_map()
-// {
-// 	var i = 21;
-// 	var i2 = 0;
-// 	var color;
-// 	var map_elem = document.getElementById('inner_map');
-// 	map_elem.innerHTML = "";
-// 	while (i >= 0)
-// 	{
-// 		i2 = 0;
-// 		while (i2 <= 9)
-// 		{
-// 			color = get_the_color(map[i][i2]);
-// 			if (map[i][i2] == (active_piece - 1))
-// 				map_elem.innerHTML += "<div class=\"piece " + (active_piece - 1) + "\" style=\"background-image:radial-gradient(circle at top right," + color + ");top:" + (i  * 50) + "px;left:" + (i2  * 50) + "px;\"></div>";
-// 			else if (map[i][i2] != 0)
-// 				map_elem.innerHTML += "<div class=\"piece " + map[i][i2] + "\" style=\"background-image:radial-gradient(circle at top right," + color + ");top:" + (i  * 50) + "px;left:" + (i2  * 50) + "px;\"></div>";
-// 			i2++;
-// 		}
-// 		i--;
-// 	}
-
-// }
 
 function	actu_map()
 {
@@ -319,7 +300,6 @@ function	check_end_of_turn()
 function	move_fixed_blocks(nb_deleted_lines, frst_line_deleted)
 {
 	var fixed_blocks = document.getElementById('fixed_block');
-	var active_blocks = document.getElementById('inner_map');
 	var i = 0;
 	var tmp = 0;
 	var i2 = 0;
@@ -336,12 +316,17 @@ function	move_fixed_blocks(nb_deleted_lines, frst_line_deleted)
 		i++;
 	}
 	i = 0;
+	var active_blocks = document.getElementById('inner_map');
+	console.log(active_blocks);
 	while (i < active_blocks.childNodes.length)
 	{
-		tmp = map[(parseInt(active_blocks.childNodes[i].style.top) / 25)][(parseInt(active_blocks.childNodes[i].style.left) / 25)]; 
-		map[(parseInt(active_blocks.childNodes[i].style.top) / 25)][(parseInt(active_blocks.childNodes[i].style.left) / 25)] = 0;
-		active_blocks.childNodes[i].style.top = parseInt(active_blocks.childNodes[i].style.top) + (nb_deleted_lines * 25) + "px";
-		map[(parseInt(active_blocks.childNodes[i].style.top) / 25)][(parseInt(active_blocks.childNodes[i].style.left) / 25)] = tmp;
+		if (active_blocks.childNodes[i] != undefined)
+		{
+			tmp = map[(parseInt(active_blocks.childNodes[i].style.top) / 25)][(parseInt(active_blocks.childNodes[i].style.left) / 25)]; 
+			map[(parseInt(active_blocks.childNodes[i].style.top) / 25)][(parseInt(active_blocks.childNodes[i].style.left) / 25)] = 0;
+			active_blocks.childNodes[i].style.top = parseInt(active_blocks.childNodes[i].style.top) + (nb_deleted_lines * 25) + "px";
+			map[(parseInt(active_blocks.childNodes[i].style.top) / 25)][(parseInt(active_blocks.childNodes[i].style.left) / 25)] = tmp;
+		}
 		i++;
 	}
 }
@@ -429,6 +414,7 @@ function	restart()
 	}
 	score = 0;
 	active_piece = 1;
+	game = 1;
 	draw_alea_piece();
 	actu_map();
 }
@@ -439,38 +425,59 @@ function	actu_score()
 	score_elem.innerHTML = score;
 }
 
+function	check_end_of_game()
+{
+	var i = 0;
+	var fixed_block = document.getElementById('fixed_block');
+	while (i < 10)
+	{
+		if (map[0][i] != 0)
+		{
+			fixed_block.innerHTML += "<div id=\"game_over\"><p>Game over</p></div>";
+			return(1);
+		}
+		i++;
+	}
+	return(0);
+}
+
 function run()
 {
-	if (check_end_of_turn() == 0)
-		go_down();
-	if (check_end_of_turn() == 1)
+	if (game == 1)
 	{
-		check_full_line();
-		draw_alea_piece();
-		turn++;
+		if (check_end_of_turn() == 0)
+			go_down();
+		if (check_end_of_turn() == 1)
+		{
+			check_full_line();
+			draw_alea_piece();
+		}
+		actu_map();
+		actu_score();
 	}
-	actu_map();
-	actu_score();
 }
 
 window.addEventListener("keydown", function(e)
 {
-	if(e.keyCode ==37)
-		move_left();
-	else if(e.keyCode == 38)
-		rotate();
-	else if(e.keyCode == 39)
-		move_right();
-	else if(e.keyCode == 40 && check_end_of_turn() == 0)
-		move_bot();
-	actu_map();
+	if (game == 1)
+	{
+		if(e.keyCode ==37)
+			move_left();
+		else if(e.keyCode == 38)
+			rotate();
+		else if(e.keyCode == 39)
+			move_right();
+		else if(e.keyCode == 40 && check_end_of_turn() == 0)
+			move_bot();
+		actu_map();
+	}
 }, true);
 
 var active_piece = 1;
 var	piece_type;
 var score = 0;
 var map = new Array(22);
-var turn = 1;
+var game = 1;
 for (var i = 0; i < 22; i++)
 {
   map[i] = new Array(10);
@@ -480,4 +487,5 @@ for (var i = 0; i < 22; i++)
 	}
 }
 draw_alea_piece();
+actu_map();
 setInterval(function(){ run(); },500);

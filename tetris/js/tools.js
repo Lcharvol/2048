@@ -20,20 +20,6 @@ function random_color()
 				return("color8");
 }
 
-function 	draw_title(nb_piece)
-{
-		var nb_piece_on_line = nb_piece / 5;
-		var pieces = document.getElementsByClassName('relative_piece');
-		var i = 0;
-		console.log(nb_piece);
-		while (i < pieces.length)
-		{
-			if ((i >= 5 && i <= 7) || i == (6 + nb_piece_on_line))
-				pieces[i].className = "relative_piece low_opacity color10";
-			i++;
-		}
-}
-
 function draw_background_title()
 {
 		var title_contner = document.getElementById('title_contner');
@@ -45,7 +31,6 @@ function draw_background_title()
 			title_contner.innerHTML += "<div class=\"relative_piece low_opacity " +  rand_color + "\">";
 			i++;
 		}
-		draw_title(i);
 }
 draw_background_title()
 window.onresize = function(){
