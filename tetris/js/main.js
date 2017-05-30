@@ -203,10 +203,31 @@ function	move_bot()
 	}
 }
 
+function	verif_move_right()
+{
+	var i = 0;
+	var i2 = 0;
+	while (i < 22)
+	{
+		i2 = 0;
+		while (i2 < 9)
+		{
+			if  (map[i][i2] == (active_piece - 1) &&
+				map[i][i2 + 1] != (active_piece - 1) && map[i][i2 + 1] != 0)
+				return(1);
+			i2++;
+		}
+		i++;
+	}
+	return(0);
+}
+
 function	move_right()
 {
 	var i = 21;
 	var i2 = 9;
+	if (verif_move_right() != 0)
+		return;
 	while (i2 >= 0)
 	{
 		i = 21;
@@ -227,10 +248,31 @@ function	move_right()
 	}
 }
 
+function	verif_move_left()
+{
+	var i = 0;
+	var i2 = 0;
+	while (i < 22)
+	{
+		i2 = 1;
+		while (i2 < 10)
+		{
+			if  (map[i][i2] == (active_piece - 1) &&
+				map[i][i2 - 1] != (active_piece - 1) && map[i][i2 - 1] != 0)
+				return(1);
+			i2++;
+		}
+		i++;
+	}
+	return(0);
+}
+
 function	move_left()
 {
 	var i = 21;
 	var i2 = 0;
+	if (verif_move_left() != 0)
+		return;
 	while (i2 <= 9)
 	{
 		i = 21;
