@@ -1,4 +1,4 @@
 # Lcharvol.github.io
-2048 game with native Js
+2048 game (Vanilla JS)
 
 Let's try this: https://lcharvol.github.io/
