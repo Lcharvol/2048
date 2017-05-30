@@ -295,7 +295,7 @@ function	move_fixed_blocks(nb_deleted_lines, frst_line_deleted)
 	var active_blocks = document.getElementById('inner_map');
 	while (i < active_blocks.childNodes.length)
 	{
-		if (active_blocks.childNodes[i] != undefined)
+		if (parseInt(active_blocks.childNodes[i].style.top) < 525)
 		{
 			tmp = map[(parseInt(active_blocks.childNodes[i].style.top) / 25)][(parseInt(active_blocks.childNodes[i].style.left) / 25)]; 
 			map[(parseInt(active_blocks.childNodes[i].style.top) / 25)][(parseInt(active_blocks.childNodes[i].style.left) / 25)] = 0;

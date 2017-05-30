@@ -28,6 +28,8 @@ body
 	position:absolute;
 	width:25px;
 	height:25px;
+	top:0;
+	transition:top 1s;
 }
 #fixed_block
 {
@@ -41,6 +43,7 @@ body
   margin-top:25px;
 	top:0;
 	z-index:2000;
+	transition:top 1s;
 }
 #title_contner
 {
